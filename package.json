@@ -20,7 +20,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "set \"PUBLIC_URL=http://Aravindarba.github.io/chat\" && react-scripts build",
+    "build": "set \"PUBLIC_URL=https://Aravindarba.github.io/chat\" && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
