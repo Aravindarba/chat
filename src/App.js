@@ -42,14 +42,14 @@ const App = () => {
           <Form>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Username</Form.Label>
-              <Form.Control type="text" placeholder="Enter username" />
+              <Form.Control type="text" placeholder="Enter username" onChange={(e) => setCurrentUser(e.target.value)} />
             </Form.Group>
 
             <Form.Group controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
+              <Form.Control type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
             </Form.Group>
-            <Button variant="primary" onClick={() => handleUserSelect('user1', 'password1')}>
+            <Button variant="primary" onClick={() => handleUserSelect(currentUser, password)}>
               Submit
             </Button>
           </Form>
