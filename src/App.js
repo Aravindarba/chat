@@ -2,38 +2,42 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form, Container, Row, Col } from 'react-bootstrap';
 
 const App = () => {
-  const [messages, setMessages] = useState(JSON.parse(localStorage.getItem('messages')) || {});
+  const storedMessages = JSON.parse(localStorage.getItem('messages'));
+  const [messages, setMessages] = useState(Array.isArray(storedMessages) ? storedMessages : []);
   const [input, setInput] = useState('');
   const [currentUser, setCurrentUser] = useState('');
   const [password, setPassword] = useState('');
   const [showModal, setShowModal] = useState(true);
 
   useEffect(() => {
-    localStorage.setItem('messages', JSON.stringify(messages));
-  }, [messages]);
+    const handleStorageChange = (e) => {
+      if (e.key === 'messages') {
+        const newMessages = JSON.parse(e.newValue);
+        setMessages(Array.isArray(newMessages) ? newMessages : []);
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
 
   useEffect(() => {
-    if (currentUser) {
-      setMessages(JSON.parse(localStorage.getItem(currentUser)) || {});
-    }
-  }, [currentUser]);
+    localStorage.setItem('messages', JSON.stringify(messages));
+  }, [messages]);
 
   const handleSendMessage = () => {
     const newMessage = { text: input, sender: currentUser };
     setMessages((prevMessages) => {
-      const updatedMessages = {
-        ...prevMessages,
-        [currentUser]: [...(prevMessages[currentUser] || []), newMessage],
-      };
-      localStorage.setItem(currentUser, JSON.stringify(updatedMessages));
+      const updatedMessages = [...prevMessages, newMessage];
+      localStorage.setItem('messages', JSON.stringify(updatedMessages));
       return updatedMessages;
     });
     setInput('');
   };
 
   const handleClearMessages = () => {
-    setMessages({});
-    localStorage.removeItem(currentUser);
+    setMessages([]);
+    localStorage.removeItem('messages');
   };
 
   const handleUserSelect = (user, pass) => {
@@ -73,12 +77,10 @@ const App = () => {
       </Row>
 
       <div>
-        {Object.entries(messages).map(([user, userMessages]) => (
-          <div key={user}>
-            <h3>{user}</h3>
-            {userMessages.map((message, index) => (
-              <div key={index}>{message.sender}: {message.text}</div>
-            ))}
+        {messages.map((message, index) => (
+          <div key={index}>
+            
+            <div>{message.sender}:{message.text}</div>
           </div>
         ))}
       </div>
