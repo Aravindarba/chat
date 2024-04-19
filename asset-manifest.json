@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "http://Aravindarba.github.io/chat/static/css/main.ff02f4b5.css",
+    "main.js": "http://Aravindarba.github.io/chat/static/js/main.bf96f905.js",
+    "static/js/453.ed3810f9.chunk.js": "http://Aravindarba.github.io/chat/static/js/453.ed3810f9.chunk.js",
+    "index.html": "http://Aravindarba.github.io/chat/index.html",
+    "main.ff02f4b5.css.map": "http://Aravindarba.github.io/chat/static/css/main.ff02f4b5.css.map",
+    "main.bf96f905.js.map": "http://Aravindarba.github.io/chat/static/js/main.bf96f905.js.map",
+    "453.ed3810f9.chunk.js.map": "http://Aravindarba.github.io/chat/static/js/453.ed3810f9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ff02f4b5.css",
+    "static/js/main.bf96f905.js"
+  ]
+}
