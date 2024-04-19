@@ -12,18 +12,28 @@ const App = () => {
     localStorage.setItem('messages', JSON.stringify(messages));
   }, [messages]);
 
+  useEffect(() => {
+    if (currentUser) {
+      setMessages(JSON.parse(localStorage.getItem(currentUser)) || {});
+    }
+  }, [currentUser]);
+
   const handleSendMessage = () => {
     const newMessage = { text: input, sender: currentUser };
-    setMessages({
-      ...messages,
-      [currentUser]: [...(messages[currentUser] || []), newMessage],
+    setMessages((prevMessages) => {
+      const updatedMessages = {
+        ...prevMessages,
+        [currentUser]: [...(prevMessages[currentUser] || []), newMessage],
+      };
+      localStorage.setItem(currentUser, JSON.stringify(updatedMessages));
+      return updatedMessages;
     });
     setInput('');
   };
 
   const handleClearMessages = () => {
     setMessages({});
-    localStorage.removeItem('messages');
+    localStorage.removeItem(currentUser);
   };
 
   const handleUserSelect = (user, pass) => {
